@@ -1,0 +1,36 @@
+.biddersList {
+  position: relative;
+  font-weight: 600;
+}
+.johnBidding {
+  margin-bottom: 20px;
+}
+.johnBiddingTime1023Am {
+  margin: 0;
+  padding-left: var(--padding-13xl);
+}
+.johnBiddingContainer {
+  align-self: stretch;
+  position: relative;
+  font-size: var(--font-inherit);
+  font-family: var(--font-inherit);
+}
+.biddersListContainer,
+.biddersListParent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.biddersListParent {
+  width: 349px;
+  gap: var(--gap-65xl);
+}
+.biddersListContainer {
+  background-color: var(--whi);
+  padding: var(--padding-26xl) var(--padding-63xl) var(--padding-106xl);
+  text-align: center;
+  font-size: var(--font-size-13xl);
+  color: var(--color-black);
+  font-family: var(--font-roboto);
+}

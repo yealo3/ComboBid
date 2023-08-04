@@ -1,0 +1,43 @@
+.articleChild {
+  position: relative;
+  width: 165px;
+  height: 131.46px;
+  object-fit: cover;
+}
+.articleName,
+.entitiesNumber {
+  margin: 0;
+  position: relative;
+  font-weight: 400;
+  font-family: inherit;
+}
+.articleName {
+  font-size: inherit;
+}
+.entitiesNumber {
+  font-size: var(--font-size-mini);
+}
+.article,
+.articleNameParent {
+  display: flex;
+  flex-direction: column;
+}
+.articleNameParent {
+  width: 147.19px;
+  padding: 0 0 0 var(--padding-xs);
+  box-sizing: border-box;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--gap-7xs);
+}
+.article {
+  width: 277.33px;
+  height: 194.22px;
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--gap-mini);
+  text-align: left;
+  font-size: var(--font-size-xl);
+  color: var(--color-black);
+  font-family: var(--font-roboto);
+}

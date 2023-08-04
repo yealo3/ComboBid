@@ -1,0 +1,25 @@
+.logoIcon {
+  position: relative;
+  width: 69px;
+  height: 69px;
+  object-fit: cover;
+}
+.combobid {
+  position: relative;
+  font-weight: 600;
+}
+.logoContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: var(--font-size-base);
+  color: var(--color-black);
+  font-family: var(--font-montserrat);
+}
+@media screen and (max-width: 960px) {
+  .logoContainer {
+    flex-direction: column;
+  }
+}
