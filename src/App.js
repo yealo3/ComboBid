@@ -4,9 +4,9 @@ import {
   useNavigationType,
   useLocation,
 } from "react-router-dom";
-import Desktop1 from "./pages/Desktop1";
-import Desktop3 from "./pages/Desktop3";
-import Desktop2 from "./pages/Desktop2";
+import Landing from "./pages/Landing";
+import Market from "./pages/Market";
+import AuctionDetails from "./pages/AuctionDetails";
 import { useEffect } from "react";
 
 function App() {
@@ -29,11 +29,11 @@ function App() {
         title = "";
         metaDescription = "";
         break;
-      case "/desktop-3":
+      case "/Market":
         title = "";
         metaDescription = "";
         break;
-      case "/desktop-2":
+      case "/Auction-Details":
         title = "";
         metaDescription = "";
         break;
@@ -55,9 +55,9 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<Desktop1 />} />
-      <Route path="/desktop-3" element={<Desktop3 />} />
-      <Route path="/desktop-2" element={<Desktop2 />} />
+      <Route path="/" element={<Landing />} />
+      <Route path="/Market" element={<Market />} />
+      <Route path="/Auction-Details" element={<AuctionDetails />} />
     </Routes>
   );
 }
