@@ -1,0 +1,136 @@
+.logoIcon {
+  position: relative;
+  width: 69px;
+  height: 69px;
+  object-fit: cover;
+}
+.combobid {
+  position: relative;
+  font-weight: 600;
+}
+.logoContainer {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.theUltimateCombinatorial {
+  position: relative;
+  font-size: var(--font-size-17xl);
+  display: inline-block;
+  width: 635px;
+}
+.auctionImageIcon {
+  position: relative;
+  width: 688px;
+  height: 355px;
+  object-fit: cover;
+}
+.container,
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 26px;
+  font-size: var(--font-size-21xl);
+  font-family: var(--font-roboto);
+}
+.section {
+  flex: 1;
+  gap: 190px;
+  text-align: center;
+  font-size: var(--font-size-base);
+  color: var(--color-black);
+  font-family: var(--font-montserrat);
+}
+.discoverThePower {
+  position: relative;
+  font-weight: 600;
+  display: inline-block;
+  width: 377px;
+  height: 133px;
+  flex-shrink: 0;
+}
+.getStarted,
+.revolutionizeYourAuction {
+  position: relative;
+  color: var(--color-black);
+}
+.revolutionizeYourAuction {
+  font-size: var(--font-size-5xl);
+  font-family: var(--font-roboto);
+  display: inline-block;
+  width: 452px;
+  height: 135px;
+  flex-shrink: 0;
+}
+.getStarted {
+  font-size: var(--font-size-13xl);
+  font-family: var(--font-lato);
+  text-align: center;
+}
+.button {
+  cursor: pointer;
+  border: 0;
+  padding: 22px 46px;
+  background-color: var(--color-goldenrod);
+  border-radius: var(--br-mini);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.button:hover {
+  background-color: var(--color-peru);
+}
+.container1,
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.container1 {
+  width: 452px;
+  height: 416px;
+  gap: 33px;
+}
+.intro {
+  flex: 1;
+  border-radius: var(--br-17xl) 0 0 var(--br-17xl);
+  background-color: var(--whi);
+  height: 1024px;
+  padding: 0 85px;
+  box-sizing: border-box;
+  text-align: center;
+  font-size: var(--font-size-17xl);
+  color: #3a3a3c;
+  font-family: var(--font-montserrat);
+}
+.landing {
+  position: relative;
+  background-color: var(--color-whitesmoke-100);
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+@media screen and (max-width: 960px) {
+  .logoContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+  .intro,
+  .section {
+    flex: unset;
+    align-self: stretch;
+  }
+  .landing {
+    flex-direction: column;
+  }
+}
