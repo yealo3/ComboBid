@@ -13,6 +13,7 @@ const MyArticles = () => {
         profileTextDecoration="unset"
         button={false}
         buttonBackgroundImage={`url("/50727481@3x.png")`}
+        S
       />
       <main className={styles.mainContainer}>
         <div className={styles.headingContainer}>

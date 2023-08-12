@@ -80,7 +80,7 @@ const NavBar1 = ({
           </Link>
           <Link
             className={styles.home}
-            to="/desktop-3"
+            to="/Market"
             target={marketTarget}
             style={marketStyle}
           >

@@ -1,20 +1,28 @@
-import Header from "../components/Header";
-
 import BiddersListContainer from "../components/BiddersListContainer";
 import WinnersListContainer from "../components/WinnersListContainer";
 import Row from "../components/Row";
+import NavBar1 from "../components/NavBar1";
 import styles from "./AuctionDetails.module.css";
 const AuctionDetails = () => {
   return (
     <div className={styles.auctiondetails}>
-      <Header />
+      <NavBar1
+        navbarMargin="unset"
+        homeTextDecoration="unset"
+        marketTextDecoration="unset"
+        myAuctionsTextDecoration="unset"
+        myBidsTextDecoration="unset"
+        profileTextDecoration="unset"
+        button={false}
+        buttonBackgroundImage={`url("/50727481@3x.png")`}
+      />
       <main className={styles.mainContainer}>
         <div className={styles.headingContainer}>
-          <div className={styles.auciton}>Auciton</div>
+          <div className={styles.auciton}>Auction</div>
         </div>
         <section className={styles.mainContainer}>
           <div className={styles.articelSetContainer}>
-            <h2 className={styles.aucitonName}>Auciton name</h2>
+            <h2 className={styles.aucitonName}>Auction name</h2>
             <Row />
             <button className={styles.button}>
               <div className={styles.bidOn}>bid on</div>

@@ -5,12 +5,14 @@ const Login = () => {
   return (
     <div className={styles.login}>
       <NavBar1
-        homeTarget="_blank"
-        marketTarget="_blank"
-        myAuctionsTarget="_blank"
-        myBidsTarget="_blank"
-        profileTarget="_blank"
+        navbarMargin="unset"
+        homeTextDecoration="unset"
+        marketTextDecoration="unset"
+        myAuctionsTextDecoration="unset"
+        myBidsTextDecoration="unset"
+        profileTextDecoration="unset"
         button={false}
+        buttonBackgroundImage={`url("/50727481@3x.png")`}
       />
       <main className={styles.mainContainer}>
         <section className={styles.formContainer}>
