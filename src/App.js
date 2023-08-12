@@ -5,8 +5,17 @@ import {
   useLocation,
 } from "react-router-dom";
 import Landing from "./pages/Landing";
-import Market from "./pages/Market";
+import Login from "./pages/Login";
+import Profile from "./pages/Profile";
+import ArticleAssign from "./pages/ArticleAssign";
+import BidAssign from "./pages/BidAssign";
+import AuctionAssign from "./pages/AuctionAssign";
+import Registration from "./pages/Registration";
+import MyArticles from "./pages/MyArticles";
+import MyAuctions from "./pages/MyAuctions";
+import MyBids from "./pages/MyBids";
 import AuctionDetails from "./pages/AuctionDetails";
+import Market from "./pages/Market";
 import { useEffect } from "react";
 
 function App() {
@@ -29,11 +38,47 @@ function App() {
         title = "";
         metaDescription = "";
         break;
-      case "/Market":
+      case "/login":
         title = "";
         metaDescription = "";
         break;
-      case "/Auction-Details":
+      case "/profile":
+        title = "";
+        metaDescription = "";
+        break;
+      case "/article-assign":
+        title = "";
+        metaDescription = "";
+        break;
+      case "/bid-assign":
+        title = "";
+        metaDescription = "";
+        break;
+      case "/auction-assign":
+        title = "";
+        metaDescription = "";
+        break;
+      case "/registration":
+        title = "";
+        metaDescription = "";
+        break;
+      case "/my-articles":
+        title = "";
+        metaDescription = "";
+        break;
+      case "/my-auctions":
+        title = "";
+        metaDescription = "";
+        break;
+      case "/my-bids":
+        title = "";
+        metaDescription = "";
+        break;
+      case "/desktop-3":
+        title = "";
+        metaDescription = "";
+        break;
+      case "/auction-details":
         title = "";
         metaDescription = "";
         break;
@@ -56,8 +101,17 @@ function App() {
   return (
     <Routes>
       <Route path="/" element={<Landing />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/article-assign" element={<ArticleAssign />} />
+      <Route path="/bid-assign" element={<BidAssign />} />
+      <Route path="/auction-assign" element={<AuctionAssign />} />
+      <Route path="/registration" element={<Registration />} />
+      <Route path="/my-articles" element={<MyArticles />} />
+      <Route path="/my-auctions" element={<MyAuctions />} />
+      <Route path="/my-bids" element={<MyBids />} />
+      <Route path="/auction-details" element={<AuctionDetails />} />
       <Route path="/Market" element={<Market />} />
-      <Route path="/Auction-Details" element={<AuctionDetails />} />
     </Routes>
   );
 }
