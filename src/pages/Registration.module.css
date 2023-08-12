@@ -1,0 +1,25 @@
+.formContainer {
+  align-self: stretch;
+  padding: var(--padding-11xl) var(--padding-39xl) 0;
+  align-items: center;
+}
+.formContainer,
+.mainContainer,
+.registration {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.mainContainer {
+  align-self: stretch;
+  align-items: center;
+}
+.registration {
+  position: relative;
+  background-color: var(--color-whitesmoke-100);
+  width: 100%;
+  overflow: hidden;
+  padding: 0 0 var(--padding-21xl);
+  box-sizing: border-box;
+  align-items: flex-start;
+}

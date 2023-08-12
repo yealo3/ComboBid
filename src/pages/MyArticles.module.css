@@ -1,0 +1,38 @@
+.myArticles1 {
+  position: relative;
+  font-weight: 600;
+}
+.headingContainer {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  padding: var(--padding-39xl) var(--padding-80xl);
+  align-items: center;
+  justify-content: space-between;
+}
+.mainContainer,
+.myArticles {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.mainContainer {
+  align-self: stretch;
+  flex: 1;
+  align-items: center;
+  gap: var(--gap-11xs);
+  text-align: center;
+  font-size: var(--font-size-21xl);
+  color: var(--color-black);
+  font-family: var(--font-roboto);
+}
+.myArticles {
+  position: relative;
+  background-color: var(--color-whitesmoke-100);
+  width: 100%;
+  height: 967px;
+  overflow: hidden;
+  padding: 0 0 var(--padding-21xl);
+  box-sizing: border-box;
+  align-items: flex-start;
+}

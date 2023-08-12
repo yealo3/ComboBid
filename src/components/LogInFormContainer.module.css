@@ -1,0 +1,58 @@
+.logIn {
+  margin: 0;
+  font-size: var(--font-size-5xl);
+  font-weight: 600;
+  font-family: var(--font-roboto);
+  display: inline-block;
+  width: 458px;
+}
+.logIn,
+.welcomeToCombobid {
+  position: relative;
+}
+.username {
+  border: 0;
+  background-color: transparent;
+}
+.signIn1 {
+  position: relative;
+  font-size: var(--navbar-size);
+  font-family: var(--navbar);
+  color: var(--color-black);
+  text-align: center;
+}
+.signIn {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-6xs) var(--padding-9xl);
+  background-color: var(--color-goldenrod);
+  border-radius: var(--br-3xs);
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+}
+.signIn:hover {
+  background-color: var(--color-peru);
+}
+.dontHaveAn {
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  color: var(--color-slategray);
+}
+.logInFormContainer {
+  background-color: var(--whi);
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding-22xl) var(--padding-104xl) var(--padding-28xl);
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-21xl);
+  text-align: center;
+  font-size: var(--navbar-size);
+  color: var(--color-black);
+  font-family: var(--navbar);
+}
