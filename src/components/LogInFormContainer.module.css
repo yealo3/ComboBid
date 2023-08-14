@@ -14,6 +14,11 @@
   border: 0;
   background-color: transparent;
 }
+.errorMsg {
+  /* Error message styles */
+  color: red;
+  font-size: 14px;
+}
 .signIn1 {
   position: relative;
   font-size: var(--navbar-size);
