@@ -21,7 +21,7 @@
 }
 .home,
 .singOut {
-  position: relative;
+  white-space: nowrap;
 }
 .button,
 .navbarLinks {
@@ -34,6 +34,7 @@
   border-radius: var(--br-mini);
   background-color: var(--color-goldenrod);
   width: 112px;
+  height: 50px;
   padding: var(--padding-6xs) var(--padding-2xl);
   justify-content: center;
 }
@@ -42,20 +43,7 @@
   padding: 0 0 0 var(--padding-286xl);
   justify-content: space-between;
 }
-.button1 {
-  cursor: pointer;
-  border: 0;
-  padding: 0;
-  background-color: transparent;
-  position: relative;
-  width: 30px;
-  height: 30px;
-  background-image: url(/public/50727481@3x.png);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: top;
-  display: none;
-}
+
 .linksContainer,
 .navbar {
   display: flex;

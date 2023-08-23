@@ -17,6 +17,7 @@ import MyBids from "./pages/MyBids";
 import AuctionDetails from "./pages/AuctionDetails";
 import Market from "./pages/Market";
 import { useEffect } from "react";
+import AuthProvider from "./components/AuthContext";
 
 function App() {
   const action = useNavigationType();
@@ -99,20 +100,22 @@ function App() {
   }, [pathname]);
 
   return (
-    <Routes>
-      <Route path="/" element={<Landing />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="/profile" element={<Profile />} />
-      <Route path="/article-assign" element={<ArticleAssign />} />
-      <Route path="/bid-assign" element={<BidAssign />} />
-      <Route path="/auction-assign" element={<AuctionAssign />} />
-      <Route path="/registration" element={<Registration />} />
-      <Route path="/my-articles" element={<MyArticles />} />
-      <Route path="/my-auctions" element={<MyAuctions />} />
-      <Route path="/my-bids" element={<MyBids />} />
-      <Route path="/auction-details" element={<AuctionDetails />} />
-      <Route path="/Market" element={<Market />} />
-    </Routes>
+    <AuthProvider>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/article-assign" element={<ArticleAssign />} />
+        <Route path="/bid-assign" element={<BidAssign />} />
+        <Route path="/auction-assign" element={<AuctionAssign />} />
+        <Route path="/registration" element={<Registration />} />
+        <Route path="/my-articles" element={<MyArticles />} />
+        <Route path="/my-auctions" element={<MyAuctions />} />
+        <Route path="/my-bids" element={<MyBids />} />
+        <Route path="/auction-details" element={<AuctionDetails />} />
+        <Route path="/Market" element={<Market />} />
+      </Routes>
+    </AuthProvider>
   );
 }
 export default App;

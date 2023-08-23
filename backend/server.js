@@ -122,11 +122,32 @@ app.get("/api/data/articles", (req, res) => {
     }
   });
 });
+//account info api:
+app.get("/api/data/users/:username", (req, res) => {
+  const { username } = req.params;
+  const query = "SELECT * FROM users WHERE username = ?"; // Assuming 'username' is the correct column name
+
+  connection.query(query, [username], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error retrieving user data from the database");
+    } else if (results.length === 0) {
+      res.status(404).send("User not found");
+    } else {
+      const user = results[0];
+      res.json(user);
+    }
+  });
+});
+
+app.get("/api/data/*", (req, res) => {
+  res.status(404).send("Endpoint not found");
+});
 //******************************************************************************************************************** */
 
 // for test
 
-app.get("/api/data/users", (req, res) => {
+app.get("/api/users", (req, res) => {
   const query = "SELECT * FROM users";
 
   connection.query(query, (err, results) => {
@@ -138,6 +159,7 @@ app.get("/api/data/users", (req, res) => {
     }
   });
 });
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

@@ -1,6 +1,8 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import styles from "./NavBar1.module.css";
+import { useAuth } from "../components/AuthContext";
+
 const NavBar1 = ({
   navbarMargin,
   homeTarget,
@@ -16,6 +18,10 @@ const NavBar1 = ({
   button,
   buttonBackgroundImage,
 }) => {
+  const handleLogoutClick = () => {
+    logOut(); // Call the logOut function when the button is clicked
+  };
+  const { loggedIn, logOut } = useAuth();
   const navbarStyle = useMemo(() => {
     return {
       margin: navbarMargin,
@@ -110,11 +116,12 @@ const NavBar1 = ({
           >
             Profile
           </Link>
-          <div className={styles.button}>
-            <div className={styles.singOut}>{`sing out `}</div>
-          </div>
+          {loggedIn && (
+            <div className={styles.button} onClick={handleLogoutClick}>
+              <div className={styles.singOut}>Sign out</div>
+            </div>
+          )}
         </div>
-        {!button && <button className={styles.button1} style={buttonStyle} />}
       </div>
     </nav>
   );

@@ -10,8 +10,10 @@ import {
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import styles from "./LogInFormContainer.module.css";
+import { useAuth } from "../components/AuthContext";
 
 const LogInFormContainer = () => {
+  const { logIn } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -35,7 +37,9 @@ const LogInFormContainer = () => {
 
       if (response.status === 200) {
         // Redirect to a protected route after successful login
+
         navigate("/Market");
+        logIn(username);
         setLoginSuccess(true);
       } else {
         // Handle login failure

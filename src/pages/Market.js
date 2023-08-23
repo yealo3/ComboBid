@@ -1,6 +1,7 @@
 import Row1 from "../components/Row1";
 import styles from "./Market.module.css";
 import NavBar1 from "../components/NavBar1";
+
 const Market = () => {
   return (
     <div className={styles.market}>
