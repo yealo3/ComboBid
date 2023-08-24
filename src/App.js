@@ -79,7 +79,7 @@ function App() {
         title = "";
         metaDescription = "";
         break;
-      case "/auction-details":
+      case "/auction-details/${auctionId}":
         title = "";
         metaDescription = "";
         break;
@@ -112,7 +112,12 @@ function App() {
         <Route path="/my-articles" element={<MyArticles />} />
         <Route path="/my-auctions" element={<MyAuctions />} />
         <Route path="/my-bids" element={<MyBids />} />
-        <Route path="/auction-details" element={<AuctionDetails />} />
+        {/* <Route path="/auction-details" element={<AuctionDetails />} /> */}
+        <Route
+          path="/auction-details/:auctionId"
+          element={<AuctionDetails />}
+        />
+
         <Route path="/Market" element={<Market />} />
       </Routes>
     </AuthProvider>

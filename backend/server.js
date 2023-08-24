@@ -97,7 +97,7 @@ app.post("/api/login", (req, res) => {
 });
 
 //--------------------------------  API endpoint to retrieve data from a table
-app.get("/api/data/auctions", (req, res) => {
+app.get("/api/auctions", (req, res) => {
   const query = "SELECT * FROM auctions";
 
   connection.query(query, (err, results) => {
@@ -136,6 +136,25 @@ app.get("/api/data/users/:username", (req, res) => {
     } else {
       const user = results[0];
       res.json(user);
+    }
+  });
+});
+
+app.get("/api/data/auctions/:auctionId", (req, res) => {
+  const { auctionId } = req.params;
+  const query = "SELECT * FROM auctions WHERE auction_id = ?";
+
+  connection.query(query, [auctionId], (err, results) => {
+    if (err) {
+      console.error(err);
+      res
+        .status(500)
+        .send("Error retrieving auction details from the database");
+    } else if (results.length === 0) {
+      res.status(404).send("Auction not found");
+    } else {
+      const auction = results[0];
+      res.json(auction);
     }
   });
 });
