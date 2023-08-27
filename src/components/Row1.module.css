@@ -10,6 +10,11 @@
   font-family: var(--font-roboto);
   margin: 40px;
 }
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+  gap: 20px; /* Gap between article containers */
+}
 
 @media screen and (max-width: 960px) {
   .row {

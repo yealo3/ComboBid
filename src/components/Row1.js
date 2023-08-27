@@ -20,30 +20,12 @@ const Row1 = () => {
   };
 
   const renderAuctions = () => {
-    const rows = [];
-    let row = [];
-
-    for (let i = 0; i < data.length; i++) {
-      const auction = data[i];
-      const auctionComponent = (
-        <AuctionContainer key={auction.auction_id} auction={auction} />
-      );
-      row.push(auctionComponent);
-
-      if (row.length === 3 || i === data.length - 1) {
-        rows.push(
-          <div className={styles.row} key={i}>
-            {row}
-          </div>
-        );
-        row = [];
-      }
-    }
-
-    return rows;
+    return data.map((auction) => (
+      <AuctionContainer key={auction.auction_id} auction={auction} />
+    ));
   };
 
-  return <div>{renderAuctions()}</div>;
+  return <div className={styles.gridContainer}>{renderAuctions()}</div>;
 };
 
 export default Row1;

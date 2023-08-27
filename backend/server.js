@@ -139,6 +139,24 @@ app.get("/api/data/users/:username", (req, res) => {
     }
   });
 });
+app.get("/api/data/articles/:auctionId", (req, res) => {
+  const { auctionId } = req.params;
+  const query = "SELECT * FROM articles WHERE auction_id = ?";
+
+  connection.query(query, [auctionId], (err, results) => {
+    if (err) {
+      console.error(err);
+      res
+        .status(500)
+        .send("Error retrieving auction details from the database");
+    } else if (results.length === 0) {
+      res.status(404).send("Auction not found");
+    } else {
+      const auction = results[0];
+      res.json(auction);
+    }
+  });
+});
 
 app.get("/api/data/auctions/:auctionId", (req, res) => {
   const { auctionId } = req.params;

@@ -106,7 +106,15 @@ const NavBar1 = ({
             target={myBidsTarget}
             style={myBidsStyle}
           >
-            my bids
+            My bids
+          </Link>
+          <Link
+            className={styles.home}
+            to="/my-articles"
+            target={myBidsTarget}
+            style={myBidsStyle}
+          >
+            My articles
           </Link>
           <Link
             className={styles.home}

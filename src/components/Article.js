@@ -6,11 +6,7 @@ const Article = ({ article }) => {
 
   return (
     <div className={styles.article}>
-      <img
-        className={styles.articleChild}
-        alt=""
-        src={"rectangle14.png"}
-      />
+      <img className={styles.articleChild} alt="" src="/rectangle-14@2x.png" />
       <div className={styles.articleNameParent}>
         <h3 className={styles.articleName}>{title}</h3>
         <h4 className={styles.entitiesNumber}>{units} units</h4>

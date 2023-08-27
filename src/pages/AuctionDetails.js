@@ -5,19 +5,22 @@ import NavBar1 from "../components/NavBar1";
 import styles from "./AuctionDetails.module.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const AuctionDetails = () => {
   const params = useParams();
   const auctionId = params.auctionId;
   const [auctionDetails, setAuctionDetails] = useState(null);
+
   useEffect(() => {
     const fetchAuctionDetails = async () => {
       try {
-        const response = await fetch(
-          `http://localhost:3002/api/data/auctions/${auctionId}` // Change userId to username
-        );
-        const data = await response.json();
-        setAuctionDetails(data);
+        const url = `http://localhost:3002/api/data/auctions/${auctionId}`;
+        console.log("Fetching from:", url);
+
+        const response = await axios.get(url);
+        console.log("Full response:", response);
+        setAuctionDetails(response.data);
       } catch (error) {
         console.error("Error fetching auction details:", error);
       }
