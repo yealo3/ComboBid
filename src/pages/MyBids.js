@@ -1,5 +1,5 @@
 import NavBar1 from "../components/NavBar1";
-import MyBidsContainer from "../components/MyBidsContainer";
+import Row2 from "../components/row2.js";
 import styles from "./MyBids.module.css";
 import ProtectedRoute from "../components/ProtectedRoute";
 const MyBids = () => {
@@ -21,7 +21,9 @@ const MyBids = () => {
             <div className={styles.headingContainer}>
               <div className={styles.myBids1}>My bids</div>
             </div>
-            <MyBidsContainer />
+            <section>
+              <Row2 />
+            </section>
           </main>
         </div>
       }

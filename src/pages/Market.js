@@ -19,7 +19,7 @@ const Market = () => {
         <div className={styles.headingContainer}>
           <div className={styles.combobid}>Market</div>
         </div>
-        <section className>
+        <section>
           <Row1 />
         </section>
       </main>

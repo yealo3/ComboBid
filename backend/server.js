@@ -194,6 +194,26 @@ app.get("/api/data/myarticles/:userId", (req, res) => {
   });
 });
 
+//my bids page api (jointure entre bids and aucitons)
+app.get("/api/data/bids/:userId", (req, res) => {
+  const userId = req.params.userId;
+  const query = `
+    SELECT b.*, au.title AS auction_title
+    FROM bids b
+    JOIN auctions au ON b.auction_id = au.auction_id
+    WHERE b.bidder_id = ?
+  `;
+
+  connection.query(query, [userId], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error retrieving data from the database");
+    } else {
+      res.json(results);
+    }
+  });
+});
+
 //******************************************************************************************************************** */
 
 // for test
