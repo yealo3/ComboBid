@@ -123,11 +123,11 @@ app.get("/api/data/articles", (req, res) => {
   });
 });
 //account info api:
-app.get("/api/data/users/:username", (req, res) => {
-  const { username } = req.params;
-  const query = "SELECT * FROM users WHERE username = ?"; // Assuming 'username' is the correct column name
+app.get("/api/data/users/:userid", (req, res) => {
+  const { userid } = req.params;
+  const query = "SELECT * FROM users WHERE user_id = ?"; // Assuming 'userid' is the correct column name
 
-  connection.query(query, [username], (err, results) => {
+  connection.query(query, [userid], (err, results) => {
     if (err) {
       console.error(err);
       res.status(500).send("Error retrieving user data from the database");
@@ -177,9 +177,23 @@ app.get("/api/data/auctions/:auctionId", (req, res) => {
   });
 });
 
-app.get("/api/data/*", (req, res) => {
-  res.status(404).send("Endpoint not found");
+//my articles page api (jointure entre articles and user)
+
+app.get("/api/data/myarticles/:userId", (req, res) => {
+  const userId = req.params.userId;
+  const query =
+    "SELECT * FROM articles WHERE auction_id IN (SELECT auction_id FROM auctions WHERE auctioneer_id = ?)";
+
+  connection.query(query, [userId], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error retrieving data from the database");
+    } else {
+      res.json(results);
+    }
+  });
 });
+
 //******************************************************************************************************************** */
 
 // for test
@@ -197,6 +211,9 @@ app.get("/api/users", (req, res) => {
   });
 });
 
+app.get("/api/data/*", (req, res) => {
+  res.status(404).send("Endpoint not found");
+});
 // Start the server
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

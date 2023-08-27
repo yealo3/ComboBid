@@ -1,61 +1,9 @@
-.auctionContainerChild {
-  align-self: stretch;
-  position: relative;
-  max-width: 100%;
-  overflow: hidden;
-  height: 195px;
-  flex-shrink: 0;
-  object-fit: cover;
-}
-.aucitonName,
-.startTime {
-  margin: 0;
-  position: relative;
-  font-weight: 400;
-  font-family: inherit;
-}
-.aucitonName {
-  font-size: var(--navbar-size);
-}
-.startTime {
-  font-size: inherit;
-}
-.aucitonNameParent {
-  flex-direction: column;
-  padding: 0 var(--padding-7xl);
-  justify-content: flex-start;
-}
-.aucitonNameParent,
-.auctionContainer,
-.row {
-  display: flex;
-  align-items: flex-start;
-}
-.auctionContainer {
-  background-color: var(--whi);
-  width: 252px;
-  height: 298px;
-  flex-direction: column;
-  padding: 0 0 var(--padding-16xl);
-  box-sizing: border-box;
-  justify-content: flex-start;
-  gap: var(--gap-base);
-}
-.row {
-  width: 880px;
-  flex-direction: row;
-  justify-content: space-between;
-}
-.auctionsContainer,
 .myAuctionsContainer {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
-.auctionsContainer {
-  width: 880px;
-  align-items: flex-start;
-}
+
 .myAuctionsContainer {
   align-self: stretch;
   height: 1243px;
@@ -67,6 +15,11 @@
   font-size: var(--font-size-mini);
   color: var(--color-black);
   font-family: var(--font-roboto);
+}
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+  gap: 20px; /* Gap between article containers */
 }
 @media screen and (max-width: 960px) {
   .auctionsContainer {

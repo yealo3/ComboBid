@@ -3,16 +3,16 @@ import { useAuth } from "./AuthContext";
 import styles from "./AccountBox.module.css";
 
 const AccountBox = () => {
-  const { loggedIn, username } = useAuth(); // Change userId to username
+  const { loggedIn, userid } = useAuth(); // Change userId to userid
   const [userData, setUserData] = useState(null);
 
   useEffect(() => {
-    if (loggedIn && username) {
-      // Fetch user data using the username
+    if (loggedIn && userid) {
+      // Fetch user data using the userid
       const fetchUserData = async () => {
         try {
           const response = await fetch(
-            `http://localhost:3002/api/data/users/${username}` // Change userId to username
+            `http://localhost:3002/api/data/users/${userid}` // Change userId to userid
           );
           const data = await response.json();
           setUserData(data);
@@ -23,7 +23,7 @@ const AccountBox = () => {
 
       fetchUserData();
     }
-  }, [loggedIn, username]);
+  }, [loggedIn, userid]);
   return (
     <div className={styles.accountBox}>
       <h2 className={styles.accountDetails}>Account details</h2>
