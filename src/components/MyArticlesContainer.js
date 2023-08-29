@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import ArticleContainer from "./Article";
 import { useAuth } from "./AuthContext";
 import styles from "./MyArticlesContainer.module.css";
+import ArticleDetailsFormContainer from "./ArticleDetailsFormContainer";
 
 const MyArticlesContainer = ({ auctionId }) => {
   const { userid } = useAuth();
   const [data, setData] = useState([]);
+  const [showForm, setShowForm] = useState(false); // State to control modal visibility
 
   useEffect(() => {
     fetchData();
@@ -28,8 +30,23 @@ const MyArticlesContainer = ({ auctionId }) => {
       <ArticleContainer key={article.article_id} article={article} />
     ));
   };
+  const toggleForm = () => {
+    setShowForm(!showForm); // Toggle the modal visibility
+  };
 
-  return <div className={styles.gridContainer}>{renderArticles()}</div>;
+  return (
+    <div>
+      <div className={styles.gridContainer}>{renderArticles()}</div>
+      {showForm && (
+        <div className={styles.modalOverlay}>
+          <ArticleDetailsFormContainer onBackClick={toggleForm} />
+        </div>
+      )}
+      <button className={styles.button} onClick={toggleForm}>
+        Add an article
+      </button>
+    </div>
+  );
 };
 
 export default MyArticlesContainer;

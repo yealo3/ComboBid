@@ -1,0 +1,43 @@
+.auctionContainerChild {
+  align-self: stretch;
+  position: relative;
+  max-width: 100%;
+  overflow: hidden;
+  height: 195px;
+  flex-shrink: 0;
+  object-fit: cover;
+}
+.aucitonName,
+.startTime {
+  margin: 0;
+  position: relative;
+  font-weight: 400;
+  font-family: inherit;
+}
+.aucitonName {
+  font-size: var(--font-size-xl);
+}
+.startTime {
+  font-size: inherit;
+}
+.aucitonNameParent,
+.auctionContainer {
+  display: flex;
+  flex-direction: column;
+  padding: 0 var(--padding-7xl);
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+.auctionContainer {
+  background-color: var(--whi);
+  width: 252px;
+  height: 298px;
+  padding: 0 0 var(--padding-16xl);
+  box-sizing: border-box;
+  gap: var(--gap-base);
+  text-align: center;
+  font-size: var(--font-size-mini);
+  color: var(--color-black);
+  font-family: var(--font-roboto);
+}

@@ -178,11 +178,41 @@ app.get("/api/data/auctions/:auctionId", (req, res) => {
 });
 
 //my articles page api (jointure entre articles and user)
+//for the ones that are included in aucitons:
+// app.get("/api/data/myarticles/:userId", (req, res) => {
+//   const userId = req.params.userId;
+//   const query =
+//     "SELECT * FROM articles WHERE auction_id IN (SELECT auction_id FROM auctions WHERE auctioneer_id = ?)";
+
+//   connection.query(query, [userId], (err, results) => {
+//     if (err) {
+//       console.error(err);
+//       res.status(500).send("Error retrieving data from the database");
+//     } else {
+//       res.json(results);
+//     }
+//   });
+// });
+
+app.get("/api/data/selectarticles", (req, res) => {
+  const { auctioneer_id } = req.query;
+
+  const query = `SELECT * FROM articles WHERE auctioneer_id = ? AND auction_id IS NULL`;
+  const values = [auctioneer_id];
+
+  connection.query(query, values, (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error retrieving data from the database");
+    } else {
+      res.json(results);
+    }
+  });
+});
 
 app.get("/api/data/myarticles/:userId", (req, res) => {
   const userId = req.params.userId;
-  const query =
-    "SELECT * FROM articles WHERE auction_id IN (SELECT auction_id FROM auctions WHERE auctioneer_id = ?)";
+  const query = "SELECT * FROM articles WHERE auctioneer_id = ?";
 
   connection.query(query, [userId], (err, results) => {
     if (err) {
@@ -210,6 +240,80 @@ app.get("/api/data/bids/:userId", (req, res) => {
       res.status(500).send("Error retrieving data from the database");
     } else {
       res.json(results);
+    }
+  });
+});
+
+// API endpoint for saving article details
+app.post("/api/putarticle", (req, res) => {
+  // Extract the article details from the request body
+  const { title, units, description, auctioneer_id } = req.body;
+
+  // Save the article details to the "articles" table in your database
+  const query =
+    "INSERT INTO articles (title, units, description, auctioneer_id) VALUES (?, ?, ?, ?)";
+  const values = [title, units, description, auctioneer_id];
+
+  connection.query(query, values, (err) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error saving article details");
+    } else {
+      res.status(200).send("Article details saved");
+    }
+  });
+});
+// Route to create an auction
+app.post("/api/postauctions", (req, res) => {
+  const { title, startingTime, endingTime, description, auctioneer_id } =
+    req.body;
+
+  // Convert datetime values to the correct format
+  const formattedStartTime = new Date(startingTime)
+    .toISOString()
+    .slice(0, 19)
+    .replace("T", " ");
+  const formattedEndTime = new Date(endingTime)
+    .toISOString()
+    .slice(0, 19)
+    .replace("T", " ");
+
+  const auctionQuery =
+    "INSERT INTO Auctions (title, start_time, end_time, description, auctioneer_id) VALUES (?, ?, ?, ?, ?)";
+  const auctionValues = [
+    title,
+    formattedStartTime,
+    formattedEndTime,
+    description,
+    auctioneer_id,
+  ];
+
+  connection.query(auctionQuery, auctionValues, (auctionErr, auctionResult) => {
+    if (auctionErr) {
+      console.error(auctionErr);
+      res.status(500).send("Error creating auction");
+    } else {
+      const newAuctionId = auctionResult.insertId;
+
+      // Update articles' auction IDs here
+      const { selectedArticles } = req.body;
+
+      selectedArticles.forEach(async (articleId) => {
+        const articleQuery =
+          "UPDATE articles SET auction_id = ? WHERE article_id = ?";
+        const articleValues = [newAuctionId, articleId];
+
+        try {
+          await connection.query(articleQuery, articleValues);
+          console.log(
+            `Article ${articleId} updated with auction ID ${newAuctionId}`
+          );
+        } catch (articleErr) {
+          console.error(`Error updating article ${articleId}:`, articleErr);
+        }
+      });
+
+      res.status(201).json({ auction_id: newAuctionId });
     }
   });
 });

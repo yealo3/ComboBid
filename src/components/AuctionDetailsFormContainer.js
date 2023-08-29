@@ -1,28 +1,95 @@
-import { useState } from "react";
-import { TextField, Icon, Button, Menu, MenuItem } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import {
+  TextField,
+  Button,
+  Menu,
+  MenuItem,
+  FormControlLabel,
+  Checkbox,
+} from "@mui/material";
 import { LocalizationProvider, DateTimePicker } from "@mui/x-date-pickers";
+import { useAuth } from "./AuthContext";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+
 import styles from "./AuctionDetailsFormContainer.module.css";
-const AuctionDetailsFormContainer = () => {
+
+const AuctionDetailsFormContainer = ({ onBackClick }) => {
+  const [selectedArticles, setSelectedArticles] = useState([]);
+  const [descriptionValue, setDescriptionValue] = useState("");
+  const [auctionTitleValue, setAuctionTitleValue] = useState("");
+
+  const { userid } = useAuth(); // Assuming you have a userid from the AuthContext
   const [startingTimeDateTimePickerValue, setStartingTimeDateTimePickerValue] =
     useState(null);
   const [endingTimeDateTimePickerValue, setEndingTimeDateTimePickerValue] =
     useState(null);
   const [selectArticlesAnchorEl, setSelectArticlesAnchorEl] = useState(null);
-  const [selectArticlesSelectedIndex, setSelectArticlesSelectedIndex] =
-    useState(-1);
+  const [articles, setArticles] = useState([]);
   const selectArticlesOpen = Boolean(selectArticlesAnchorEl);
+
+  useEffect(() => {
+    // Fetch articles from the backend
+    fetchArticles();
+  }, []);
+
+  const fetchArticles = async () => {
+    try {
+      const response = await fetch(
+        `http://localhost:3002/api/data/selectarticles?auctioneer_id=${userid}`
+      );
+      const data = await response.json();
+      setArticles(data);
+    } catch (error) {
+      console.error("Error fetching articles:", error);
+    }
+  };
+
+  const handleSelectArticlesMenuItemClick = (articleId) => {
+    if (selectedArticles.includes(articleId)) {
+      setSelectedArticles(selectedArticles.filter((id) => id !== articleId));
+    } else {
+      setSelectedArticles([...selectedArticles, articleId]);
+    }
+    // Don't close the menu here
+  };
+
   const handleSelectArticlesClick = (event) => {
     setSelectArticlesAnchorEl(event.currentTarget);
   };
-  const handleSelectArticlesMenuItemClick = (index) => {
-    setSelectArticlesSelectedIndex(index);
-    setSelectArticlesAnchorEl(null);
-  };
+
   const handleSelectArticlesClose = () => {
     setSelectArticlesAnchorEl(null);
   };
 
+  const handleFormSubmit = async () => {
+    const formData = {
+      title: auctionTitleValue,
+      startingTime: startingTimeDateTimePickerValue,
+      endingTime: endingTimeDateTimePickerValue,
+      description: descriptionValue,
+      auctioneer_id: userid,
+      selectedArticles: selectedArticles, // Include the selectedArticles property
+    };
+
+    try {
+      const response = await fetch("http://localhost:3002/api/postauctions", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const newAuctionId = await response.json();
+        console.log("Auction created with ID:", newAuctionId);
+      } else {
+        console.error("Error creating auction:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Error creating auction:", error);
+    }
+  };
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <div className={styles.auctionDetailsFormContainer}>
@@ -34,11 +101,13 @@ const AuctionDetailsFormContainer = () => {
           <TextField
             className={styles.auctionTitle}
             sx={{ width: 460 }}
+            value={auctionTitleValue}
+            onChange={(e) => setAuctionTitleValue(e.target.value)}
             color="primary"
             variant="outlined"
             type="text"
             label="Auction Title"
-            placeholder="choose a title"
+            placeholder="Choose a title"
             size="medium"
             margin="none"
           />
@@ -76,6 +145,7 @@ const AuctionDetailsFormContainer = () => {
               />
             </div>
           </div>
+
           <div>
             <Button
               id="button-SELECT ARTICLES"
@@ -92,24 +162,21 @@ const AuctionDetailsFormContainer = () => {
               open={selectArticlesOpen}
               onClose={handleSelectArticlesClose}
             >
-              <MenuItem
-                selected={selectArticlesSelectedIndex === 0}
-                onClick={() => handleSelectArticlesMenuItemClick(0)}
-              >
-                article1
-              </MenuItem>
-              <MenuItem
-                selected={selectArticlesSelectedIndex === 1}
-                onClick={() => handleSelectArticlesMenuItemClick(1)}
-              >
-                article2
-              </MenuItem>
-              <MenuItem
-                selected={selectArticlesSelectedIndex === 2}
-                onClick={() => handleSelectArticlesMenuItemClick(2)}
-              >
-                article3
-              </MenuItem>
+              {articles.map((article) => (
+                <MenuItem key={article.article_id}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={selectedArticles.includes(article.article_id)}
+                        onChange={() =>
+                          handleSelectArticlesMenuItemClick(article.article_id)
+                        }
+                      />
+                    }
+                    label={article.title}
+                  />
+                </MenuItem>
+              ))}
             </Menu>
           </div>
           <TextField
@@ -118,16 +185,19 @@ const AuctionDetailsFormContainer = () => {
             variant="outlined"
             multiline
             rows={7}
-            maxRows={10}
+            value={descriptionValue}
+            onChange={(e) => setDescriptionValue(e.target.value)}
             label="Description"
             placeholder="Enter description"
             margin="none"
           />
           <div className={styles.buttonParent}>
             <button className={styles.button}>
-              <div className={styles.back}>Back</div>
+              <div className={styles.back} onClick={onBackClick}>
+                Back
+              </div>
             </button>
-            <button className={styles.submit}>
+            <button className={styles.submit} onClick={handleFormSubmit}>
               <div className={styles.back}>Submit</div>
             </button>
           </div>
