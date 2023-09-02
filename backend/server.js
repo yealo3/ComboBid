@@ -317,6 +317,151 @@ app.post("/api/postauctions", (req, res) => {
     }
   });
 });
+///-----------
+///-----------
+///-----------
+///-----------
+///-----------
+///-----------
+///-----------
+// Import necessary modules and set up your Express app
+
+// Endpoint to create a new bid
+// Create or update a bid
+app.post("/api/create-bid", async (req, res) => {
+  try {
+    // Extract data from the request body
+    const { auction_id, bidder_id, price } = req.body;
+
+    // Check if a bid for the same auction and bidder already exists
+    const existingBid = await pool.query(
+      "SELECT * FROM bids WHERE auction_id = ? AND bidder_id = ?",
+      [auction_id, bidder_id]
+    );
+
+    if (existingBid.length > 0) {
+      // Update the existing bid
+      const updatedBid = await pool.query(
+        "UPDATE bids SET price = ? WHERE bid_id = ?",
+        [price, existingBid[0].bid_id]
+      );
+
+      res.json({ message: "Bid updated successfully" });
+    } else {
+      // Create a new bid
+      const newBid = await pool.query(
+        "INSERT INTO bids (auction_id, bidder_id, price) VALUES (?, ?, ?)",
+        [auction_id, bidder_id, price]
+      );
+
+      res.json({
+        message: "Bid created successfully",
+        bid_id: newBid.insertId,
+      });
+    }
+  } catch (error) {
+    console.error("Error creating/updating bid:", error);
+    res.status(500).json({ message: "Error creating/updating bid" });
+  }
+});
+// Create or update a collection
+app.post("/api/create-collection", async (req, res) => {
+  try {
+    // Extract data from the request body
+    const { collection_id, bid_id, units } = req.body;
+
+    // Check if a collection for the same collection_id and bid_id already exists
+    const existingCollection = await pool.query(
+      "SELECT * FROM collections WHERE collection_id = ? AND bid_id = ?",
+      [collection_id, bid_id]
+    );
+
+    if (existingCollection.length > 0) {
+      // Update the existing collection
+      const updatedCollection = await pool.query(
+        "UPDATE collections SET units = ? WHERE collection_id = ? AND bid_id = ?",
+        [units, collection_id, bid_id]
+      );
+
+      res.json({ message: "Collection updated successfully" });
+    } else {
+      // Create a new collection
+      const newCollection = await pool.query(
+        "INSERT INTO collections (collection_id, bid_id, units) VALUES (?, ?, ?)",
+        [collection_id, bid_id, units]
+      );
+
+      res.json({ message: "Collection created successfully" });
+    }
+  } catch (error) {
+    console.error("Error creating/updating collection:", error);
+    res.status(500).json({ message: "Error creating/updating collection" });
+  }
+});
+app.put("/api/update-collection/:bidId/:articleId", async (req, res) => {
+  const { bidId, articleId } = req.params;
+  const { units } = req.body;
+
+  try {
+    const updateCollectionQuery = `UPDATE collections SET units = ? WHERE bid_id = ? AND collection_id = ?`;
+    await connection.query(updateCollectionQuery, [units, bidId, articleId]);
+
+    res.status(200).json({ message: "Collection updated successfully" });
+  } catch (error) {
+    console.error("Error updating collection:", error);
+    res.status(500).json({ message: "Error updating collection" });
+  }
+});
+
+app.put("/api/update-bid/:bidId", async (req, res) => {
+  const { bidId } = req.params;
+  const { price } = req.body;
+
+  try {
+    const updateBidQuery = `UPDATE bids SET price = ? WHERE bid_id = ?`;
+    await connection.query(updateBidQuery, [price, bidId]);
+
+    res.status(200).json({ message: "Bid updated successfully" });
+  } catch (error) {
+    console.error("Error updating bid:", error);
+    res.status(500).json({ message: "Error updating bid" });
+  }
+});
+app.get("/api/get-existing-bid/:userId/:auctionId", (req, res) => {
+  const { userId, auctionId } = req.params;
+  const query = "SELECT * FROM bids WHERE bidder_id = ? AND auction_id = ?";
+  const values = [userId, auctionId];
+
+  connection.query(query, values, (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error retrieving data from the database");
+    } else if (results.length > 0) {
+      const existingBid = {
+        bid_id: results[0].bid_id,
+        price: results[0].price,
+      };
+      res.json(existingBid);
+    } else {
+      res.status(404).json({ message: "Bid not found" });
+    }
+  });
+});
+// Fetch collections based on bid ID
+app.get("/api/get-collections/:bidId", (req, res) => {
+  const { bidId } = req.params;
+  const query = "SELECT * FROM collections WHERE bid_id = ?";
+  const values = [bidId];
+
+  connection.query(query, values, (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send("Error retrieving collections from the database");
+    } else {
+      res.status(200).json(results);
+    }
+  });
+});
 
 //******************************************************************************************************************** */
 

@@ -89,6 +89,7 @@ const AuctionDetailsFormContainer = ({ onBackClick }) => {
     } catch (error) {
       console.error("Error creating auction:", error);
     }
+    onBackClick();
   };
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>

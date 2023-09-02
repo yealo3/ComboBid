@@ -1,6 +1,8 @@
 import BiddersListContainer from "../components/BiddersListContainer";
 import WinnersListContainer from "../components/WinnersListContainer";
 import Row from "../components/Row";
+import { useAuth } from "../components/AuthContext";
+import FormContainer from "../components/FormContainer";
 import NavBar1 from "../components/NavBar1";
 import styles from "./AuctionDetails.module.css";
 import { useEffect, useState } from "react";
@@ -8,9 +10,11 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const AuctionDetails = () => {
+  const { userid } = useAuth();
   const params = useParams();
   const auctionId = params.auctionId;
   const [auctionDetails, setAuctionDetails] = useState(null);
+  const [showForm, setShowForm] = useState(false);
 
   useEffect(() => {
     const fetchAuctionDetails = async () => {
@@ -28,7 +32,9 @@ const AuctionDetails = () => {
 
     fetchAuctionDetails();
   }, [auctionId]);
-
+  const toggleForm = () => {
+    setShowForm(!showForm); // Toggle the modal visibility
+  };
   return (
     <div className={styles.auctiondetails}>
       <NavBar1
@@ -51,10 +57,17 @@ const AuctionDetails = () => {
               <h2 className={styles.aucitonName}>{auctionDetails.title}</h2>
             )}
             <Row auctionId={auctionId} />
-            <button className={styles.button}>
-              <div className={styles.bidOn}>bid on</div>
-            </button>
+            {auctionDetails && userid !== auctionDetails.auctioneer_id && (
+              <button className={styles.button} onClick={toggleForm}>
+                <div className={styles.bidOn}>bid on</div>
+              </button>
+            )}
           </div>
+          {showForm && (
+            <div className={styles.modalOverlay}>
+              <FormContainer onBackClick={toggleForm} idauction={auctionId} />
+            </div>
+          )}
         </section>
         <section className={styles.lists}>
           <BiddersListContainer />

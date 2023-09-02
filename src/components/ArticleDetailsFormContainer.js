@@ -45,7 +45,9 @@ const ArticleDetailsFormContainer = ({ onBackClick }) => {
     } catch (error) {
       console.error("Error submitting article details:", error);
     }
+    onBackClick();
   };
+
   return (
     <div className={styles.articleDetailsFormContainer}>
       <div className={styles.articleDetails}>
@@ -91,6 +93,7 @@ const ArticleDetailsFormContainer = ({ onBackClick }) => {
           value={description}
           onChange={handleDescriptionChange}
         />
+
         <div className={styles.buttonParent}>
           <button className={styles.button}>
             <div className={styles.back} onClick={onBackClick}>
