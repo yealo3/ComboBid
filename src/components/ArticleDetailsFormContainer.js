@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { TextField } from "@mui/material";
 import { useAuth } from "./AuthContext";
 import styles from "./ArticleDetailsFormContainer.module.css";
-const ArticleDetailsFormContainer = ({ onBackClick }) => {
+const ArticleDetailsFormContainer = ({ onBackClick, useEffect }) => {
   const [articleTitle, setArticleTitle] = useState("");
   const [articleUnit, setArticleUnit] = useState(0);
   const [description, setDescription] = useState("");
@@ -37,6 +37,7 @@ const ArticleDetailsFormContainer = ({ onBackClick }) => {
 
       if (response.ok) {
         // Data successfully saved
+        useEffect;
         console.log("Article details submitted successfully");
       } else {
         // Handle error response

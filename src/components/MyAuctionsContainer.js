@@ -11,7 +11,7 @@ const MyAuctionsContainer = () => {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  });
 
   const fetchData = async () => {
     try {

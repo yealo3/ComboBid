@@ -5,10 +5,10 @@ import { useAuth } from "../components/AuthContext";
 function ProtectedRoute({ element }) {
   const { loggedIn } = useAuth();
 
-  if (loggedIn) {
-    return element;
-  } else {
+  if (!loggedIn) {
     return <Navigate to="/login" />;
+  } else {
+    return element;
   }
 }
 

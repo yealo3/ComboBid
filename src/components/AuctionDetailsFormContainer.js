@@ -81,6 +81,7 @@ const AuctionDetailsFormContainer = ({ onBackClick }) => {
       });
 
       if (response.ok) {
+        useEffect();
         const newAuctionId = await response.json();
         console.log("Auction created with ID:", newAuctionId);
       } else {

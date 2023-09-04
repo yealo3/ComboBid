@@ -33,13 +33,13 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 26px;
+
   font-size: var(--font-size-21xl);
   font-family: var(--font-roboto);
 }
 .section {
   flex: 1;
-  gap: 190px;
+  gap: 9vh;
   text-align: center;
   font-size: var(--font-size-base);
   color: var(--color-black);
@@ -101,7 +101,7 @@
   flex: 1;
   border-radius: var(--br-17xl) 0 0 var(--br-17xl);
   background-color: var(--whi);
-  height: 1024px;
+  height: 100vh;
   padding: 0 85px;
   box-sizing: border-box;
   text-align: center;
@@ -111,14 +111,17 @@
 }
 .landing {
   position: relative;
+
   background-color: var(--color-whitesmoke-100);
   width: 100%;
+  height: auto;
   overflow: hidden;
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
 }
+/* asdfffffffasdfasdfadsfsdadsf */
 @media screen and (max-width: 960px) {
   .logoContainer {
     flex-direction: column;

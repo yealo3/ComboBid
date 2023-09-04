@@ -15,14 +15,24 @@ import { useAuth } from "../components/AuthContext";
 const LogInFormContainer = () => {
   const { logIn } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
+  const [rememberMe, setRememberMe] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState(false); // State for login error
   const [loginSuccess, setLoginSuccess] = useState(false); // State for successful login
   const navigate = useNavigate();
 
+  const saveUserData = (username, remember) => {
+    localStorage.setItem("username", username);
+    localStorage.setItem("rememberMe", remember);
+  };
+
   const handleShowPasswordClick = () => {
     setShowPassword(!showPassword);
+  };
+
+  const handleRememberMeChange = () => {
+    setRememberMe(!rememberMe); // Toggle the rememberMe state
   };
 
   const handleLogin = async () => {
@@ -37,7 +47,10 @@ const LogInFormContainer = () => {
 
       if (response.status === 200) {
         // Redirect to a protected route after successful login
-
+        if (rememberMe) {
+          // If "Remember Me" is checked, save user data in localStorage
+          saveUserData(username, true); // Pass userId to saveUserData
+        }
         navigate("/Market");
         logIn(username);
         setLoginSuccess(true);
@@ -50,6 +63,7 @@ const LogInFormContainer = () => {
       console.error("Error logging in:", error);
     }
   };
+
   const handleCloseError = () => {
     setLoginError(false); // Close login error message
   };
@@ -57,6 +71,7 @@ const LogInFormContainer = () => {
   const handleCloseSuccess = () => {
     setLoginSuccess(false); // Close login success message
   };
+
   return (
     <div className={styles.logInFormContainer}>
       <h2 className={styles.logIn}>Log in</h2>
@@ -127,7 +142,14 @@ const LogInFormContainer = () => {
       <FormControlLabel
         label="Remember me"
         labelPlacement="end"
-        control={<Checkbox color="primary" size="small" />}
+        control={
+          <Checkbox
+            color="primary"
+            size="small"
+            checked={rememberMe}
+            onChange={handleRememberMeChange}
+          />
+        }
       />
       <button className={styles.signIn} onClick={handleLogin}>
         <div className={styles.signIn1}>Sign in</div>

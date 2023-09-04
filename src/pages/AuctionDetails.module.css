@@ -77,7 +77,6 @@
   position: relative;
   background-color: var(--color-whitesmoke-100);
   width: 100%;
-  height: auto;
   overflow: hidden;
   padding: 0 0 var(--padding-21xl);
   box-sizing: border-box;

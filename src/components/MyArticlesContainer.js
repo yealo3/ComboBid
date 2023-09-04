@@ -4,15 +4,14 @@ import { useAuth } from "./AuthContext";
 import styles from "./MyArticlesContainer.module.css";
 import ArticleDetailsFormContainer from "./ArticleDetailsFormContainer";
 
-const MyArticlesContainer = ({ auctionId }) => {
+const MyArticlesContainer = () => {
   const { userid } = useAuth();
   const [data, setData] = useState([]);
   const [showForm, setShowForm] = useState(false); // State to control modal visibility
 
   useEffect(() => {
     fetchData();
-  }, [auctionId]);
-
+  });
   const fetchData = async () => {
     try {
       const response = await fetch(
@@ -39,7 +38,10 @@ const MyArticlesContainer = ({ auctionId }) => {
       <div className={styles.gridContainer}>{renderArticles()}</div>
       {showForm && (
         <div className={styles.modalOverlay}>
-          <ArticleDetailsFormContainer onBackClick={toggleForm} />
+          <ArticleDetailsFormContainer
+            onBackClick={toggleForm}
+            refreshData={useEffect}
+          />
         </div>
       )}
       <button className={styles.button} onClick={toggleForm}>

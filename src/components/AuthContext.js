@@ -3,11 +3,19 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [username, setUsername] = useState(null);
-  const [userid, setUserid] = useState(null);
+  const storedUserId = localStorage.getItem("userId");
+  const storedUsername = localStorage.getItem("username");
+  const storedRememberMe = localStorage.getItem("rememberMe");
+  const [loggedIn, setLoggedIn] = useState(storedRememberMe);
+  const [username, setUsername] = useState(storedUsername);
+  const [userid, setUserid] = useState(storedUserId);
 
   useEffect(() => {
+    if (storedUserId && storedRememberMe === "true") {
+      setUserid(storedUserId);
+      setLoggedIn(true);
+      setUsername(storedUsername);
+    }
     if (username) {
       const fetchUserIdByUsername = async () => {
         try {
@@ -18,8 +26,10 @@ const AuthProvider = ({ children }) => {
           console.log("fasdfasd" + user);
           if (user) {
             setUserid(user.user_id); // Assuming the user ID field is named 'id'
+            localStorage.setItem("userId", user.user_id);
           } else {
             setUserid(null); // User not found
+            localStorage.setItem("userId", null);
           }
         } catch (error) {
           console.error("Error fetching user ID:", error);
@@ -34,14 +44,14 @@ const AuthProvider = ({ children }) => {
   const logIn = (username) => {
     setLoggedIn(true);
     setUsername(username);
-    console.log("username is :" + username);
-    console.log("id is :" + userid);
   };
 
   const logOut = () => {
     setLoggedIn(false);
     setUsername(null);
-    setUserid(null); // Reset user ID on logout
+    setUserid(null);
+    localStorage.setItem("userId", null);
+    localStorage.setItem("rememberMe", false);
   };
 
   return (
