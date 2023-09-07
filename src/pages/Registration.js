@@ -4,16 +4,7 @@ import styles from "./Registration.module.css";
 const Registration = () => {
   return (
     <div className={styles.registration}>
-      <NavBar1
-        navbarMargin="unset"
-        homeTextDecoration="unset"
-        marketTextDecoration="unset"
-        myAuctionsTextDecoration="unset"
-        myBidsTextDecoration="unset"
-        profileTextDecoration="unset"
-        button={false}
-        buttonBackgroundImage={`url("/50727481@3x.png")`}
-      />
+      <NavBar1 />
       <main className={styles.mainContainer}>
         <section className={styles.formContainer}>
           <RegistrationFormContainer />

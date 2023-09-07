@@ -111,7 +111,7 @@ app.get("/api/auctions", (req, res) => {
 });
 
 app.get("/api/data/articles", (req, res) => {
-  const query = "SELECT * FROM articles";
+  const query = "SELECT * FROM articles ; ";
 
   connection.query(query, (err, results) => {
     if (err) {
@@ -212,7 +212,8 @@ app.get("/api/data/selectarticles", (req, res) => {
 
 app.get("/api/data/myarticles/:userId", (req, res) => {
   const userId = req.params.userId;
-  const query = "SELECT * FROM articles WHERE auctioneer_id = ?";
+  const query =
+    "SELECT * FROM articles WHERE auctioneer_id = ? ORDER BY auction_id IS NULL DESC; ";
 
   connection.query(query, [userId], (err, results) => {
     if (err) {
@@ -480,6 +481,57 @@ function getExistingCollection(collectionId, bidId) {
     });
   });
 }
+///////////////////
+
+// Define the API endpoint to fetch the data
+// Fetch bidders for the specified auction
+app.get("/api/bidders/:auction_id", (req, res) => {
+  const auctionId = req.params.auction_id;
+
+  const sqlQuery = `
+    SELECT u.user_id, u.family_name, u.name, b.put_time, b.price
+    FROM users u
+    JOIN bids b ON u.user_id = b.bidder_id
+    WHERE b.auction_id = ?;
+  `;
+
+  connection.query(sqlQuery, [auctionId], (err, results) => {
+    if (err) {
+      console.error("Error executing SQL query:", err);
+      res.status(500).json({ error: "Internal Server Error" });
+      return;
+    }
+
+    res.json(results);
+  });
+});
+
+// Fetch collections for the specified bidder
+// Define a route to fetch collections for a specific user and auction
+app.get("/api/collections/:user_id/:auction_id", (req, res) => {
+  const userId = req.params.user_id;
+  const auctionId = req.params.auction_id;
+  const sqlQuery = `
+    SELECT a.title, c.units
+    FROM articles a
+    JOIN collections c ON a.article_id = c.collection_id
+    WHERE c.bid_id IN (
+      SELECT bid_id
+      FROM bids
+      WHERE bidder_id = ? AND a.auction_id = ?
+    );
+  `;
+
+  connection.query(sqlQuery, [userId, auctionId], (err, results) => {
+    if (err) {
+      console.error("Error executing SQL query:", err);
+      res.status(500).json({ error: "Internal Server Error" });
+      return;
+    }
+
+    res.json(results);
+  });
+});
 
 // for test
 

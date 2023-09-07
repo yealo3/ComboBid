@@ -29,7 +29,7 @@
 
 .articleNameParent {
   width: 147.19px;
-  padding: 0 0 0 var(--padding-xs);
+  padding: var(--padding-xs) var(--padding-xs);
   box-sizing: border-box;
   align-items: flex-start;
   justify-content: center;
@@ -37,8 +37,12 @@
 }
 
 .article {
-  width: 277.33px;
-  height: 194.22px;
+  background-color: var(--whi);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: auto;
+  height: auto;
+  display: flex;
+  margin: 10px 20px;
   align-items: center;
   justify-content: flex-start;
   gap: var(--gap-mini);
@@ -46,4 +50,7 @@
   font-size: 17px; /* Adjust to your desired smaller font size */
   color: var(--color-black);
   font-family: var(--font-roboto);
+}
+.lowerOpacity {
+  opacity: 0.5; /* Adjust the opacity value as needed */
 }

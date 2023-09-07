@@ -2,10 +2,10 @@ import React from "react";
 import styles from "./Article.module.css";
 
 const Article = ({ article }) => {
-  const { title, collection_id, units, description } = article;
+  const { title, auction_id, units } = article;
 
   return (
-    <div className={styles.article}>
+    <div className={`${styles.article} `}>
       <img className={styles.articleChild} alt="" src="/rectangle-14@2x.png" />
       <div className={styles.articleNameParent}>
         <h3 className={styles.articleName}>{title}</h3>

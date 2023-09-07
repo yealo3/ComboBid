@@ -7,16 +7,7 @@ const MyAuctions = () => {
     <ProtectedRoute
       element={
         <div className={styles.myAuctions}>
-          <NavBar1
-            navbarMargin="unset"
-            homeTextDecoration="unset"
-            marketTextDecoration="unset"
-            myAuctionsTextDecoration="unset"
-            myBidsTextDecoration="unset"
-            profileTextDecoration="unset"
-            button={false}
-            buttonBackgroundImage={`url("/50727481@3x.png")`}
-          />
+          <NavBar1 />
           <main className={styles.mainContainer}>
             <div className={styles.headingContainer}>
               <div className={styles.myAuctions1}>My auctions</div>

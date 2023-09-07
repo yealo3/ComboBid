@@ -1,27 +1,84 @@
 import styles from "./BiddersListContainer.module.css";
-const BiddersListContainer = () => {
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import {
+  CircularProgress,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+} from "@mui/material";
+
+const BiddersListContainer = ({ auctionId }) => {
+  const [bidders, setBidders] = useState([]);
+  const [hoveredBidderId, setHoveredBidderId] = useState(null); // Track the bidder whose name is being hovered over
+  const [collections, setCollections] = useState([]);
+
+  useEffect(() => {
+    // Fetch bidders for the specified auction
+    axios
+      .get(`http://localhost:3002/api/bidders/${auctionId}`)
+      .then((response) => {
+        setBidders(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching bidders:", error);
+      });
+  }, [auctionId]);
+
+  // Fetch collections for the specified bidder when their name is hovered over
+  useEffect(() => {
+    if (hoveredBidderId !== null) {
+      axios
+        .get(
+          `http://localhost:3002/api/collections/${hoveredBidderId}/${auctionId}`
+        )
+        .then((response) => {
+          setCollections(response.data);
+        })
+        .catch((error) => {
+          console.error("Error fetching collections:", error);
+        });
+    } else {
+      // Clear collections when no bidder is hovered over
+      setCollections([]);
+    }
+  }, [hoveredBidderId]);
+
   return (
     <div className={styles.biddersListContainer}>
-      <div className={styles.biddersListParent}>
-        <div className={styles.biddersList}>bidders list</div>
-        <div className={styles.johnBiddingContainer}>
-          <ul className={styles.johnBiddingTime1023Am}>
-            <li className={styles.johnBidding}>
-              John - Bidding Time: 10:23 AM, Price: $45
-            </li>
-            <li className={styles.johnBidding}>
-              Emily - Bidding Time: 10:25 AM, Price: $78
-            </li>
-            <li className={styles.johnBidding}>
-              David - Bidding Time: 10:27 AM, Price: $32
-            </li>
-            <li className={styles.johnBidding}>
-              Sarah - Bidding Time: 10:29 AM, Price: $66
-            </li>
-            <li>Michael - Bidding Time: 10:31 AM, Price: $21</li>
-          </ul>
-        </div>
-      </div>
+      <Typography variant="h5">Bidders List</Typography>
+
+      <List>
+        {bidders.map((bidder, index) => (
+          <div
+            key={index}
+            className={styles.biddersListItem}
+            onMouseEnter={() => setHoveredBidderId(bidder.user_id)} // Set the hovered bidder's ID
+            onMouseLeave={() => setHoveredBidderId(null)} // Clear the hovered bidder's ID
+          >
+            {hoveredBidderId === bidder.user_id && (
+              <div className={styles.collectionBubble}>
+                <Typography variant="h6">Collections</Typography>
+                <List>
+                  {collections.map((collection, idx) => (
+                    <ListItem key={idx} className={styles.collectionItem}>
+                      <ListItemText
+                        primary={`Title: ${collection.title}`}
+                        secondary={`Units: ${collection.units}`}
+                      />
+                    </ListItem>
+                  ))}
+                </List>
+              </div>
+            )}
+            <ListItemText
+              primary={`${bidder.family_name}, ${bidder.name}`}
+              secondary={`Bidding Time: ${bidder.put_time}, Price: $${bidder.price}`}
+            />
+          </div>
+        ))}
+      </List>
     </div>
   );
 };

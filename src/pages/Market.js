@@ -5,16 +5,7 @@ import NavBar1 from "../components/NavBar1";
 const Market = () => {
   return (
     <div className={styles.market}>
-      <NavBar1
-        navbarMargin="unset"
-        homeTextDecoration="unset"
-        marketTextDecoration="unset"
-        myAuctionsTextDecoration="unset"
-        myBidsTextDecoration="unset"
-        profileTextDecoration="unset"
-        button={false}
-        buttonBackgroundImage={`url("/50727481@3x.png")`}
-      />
+      <NavBar1 />
       <main className={styles.mainContainer}>
         <div className={styles.headingContainer}>
           <div className={styles.combobid}>Market</div>

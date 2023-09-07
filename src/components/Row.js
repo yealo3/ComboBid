@@ -24,7 +24,11 @@ const Row = ({ auctionId }) => {
 
   const renderArticles = () => {
     return data.map((article) => (
-      <ArticleContainer key={article.article_id} article={article} />
+      <ArticleContainer
+        className={styles.normalpoacity}
+        key={article.article_id}
+        article={article}
+      />
     ));
   };
 
