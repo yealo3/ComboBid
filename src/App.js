@@ -7,9 +7,6 @@ import {
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Profile from "./pages/Profile";
-import ArticleAssign from "./pages/ArticleAssign";
-import BidAssign from "./pages/BidAssign";
-import AuctionAssign from "./pages/AuctionAssign";
 import Registration from "./pages/Registration";
 import MyArticles from "./pages/MyArticles";
 import MyAuctions from "./pages/MyAuctions";
@@ -47,18 +44,7 @@ function App() {
         title = "";
         metaDescription = "";
         break;
-      case "/article-assign":
-        title = "";
-        metaDescription = "";
-        break;
-      case "/bid-assign":
-        title = "";
-        metaDescription = "";
-        break;
-      case "/auction-assign":
-        title = "";
-        metaDescription = "";
-        break;
+
       case "/registration":
         title = "";
         metaDescription = "";
@@ -105,9 +91,7 @@ function App() {
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
-        <Route path="/article-assign" element={<ArticleAssign />} />
-        <Route path="/bid-assign" element={<BidAssign />} />
-        <Route path="/auction-assign" element={<AuctionAssign />} />
+
         <Route path="/registration" element={<Registration />} />
         <Route path="/my-articles" element={<MyArticles />} />
         <Route path="/my-auctions" element={<MyAuctions />} />
