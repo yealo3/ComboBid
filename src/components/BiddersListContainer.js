@@ -14,7 +14,7 @@ const BiddersListContainer = ({ auctionId }) => {
   const [hoveredBidderId, setHoveredBidderId] = useState(null); // Track the bidder whose name is being hovered over
   const [collections, setCollections] = useState([]);
 
-  useEffect(() => {
+  const fetchBidders = () => {
     // Fetch bidders for the specified auction
     axios
       .get(`http://localhost:3002/api/bidders/${auctionId}`)
@@ -24,10 +24,9 @@ const BiddersListContainer = ({ auctionId }) => {
       .catch((error) => {
         console.error("Error fetching bidders:", error);
       });
-  }, [auctionId]);
+  };
 
-  // Fetch collections for the specified bidder when their name is hovered over
-  useEffect(() => {
+  const fetchCollections = () => {
     if (hoveredBidderId !== null) {
       axios
         .get(
@@ -43,7 +42,22 @@ const BiddersListContainer = ({ auctionId }) => {
       // Clear collections when no bidder is hovered over
       setCollections([]);
     }
-  }, [hoveredBidderId]);
+  };
+
+  useEffect(() => {
+    // Fetch data initially
+    fetchBidders();
+    fetchCollections();
+
+    // Set up an interval to refresh the data every 2 seconds
+    const refreshInterval = setInterval(() => {
+      fetchBidders();
+      fetchCollections();
+    }, 2000);
+
+    // Clear the interval when the component unmounts
+    return () => clearInterval(refreshInterval);
+  }, [auctionId, hoveredBidderId]);
 
   return (
     <div className={styles.biddersListContainer}>

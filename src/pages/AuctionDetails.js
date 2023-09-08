@@ -69,7 +69,7 @@ const AuctionDetails = () => {
             <section className={styles.lists}>
               <BiddersListContainer auctionId={auctionId} />
 
-              <WinnersListContainer />
+              <WinnersListContainer auctionId={auctionId} />
             </section>
           </main>
         </div>

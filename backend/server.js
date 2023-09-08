@@ -512,14 +512,12 @@ app.get("/api/collections/:user_id/:auction_id", (req, res) => {
   const userId = req.params.user_id;
   const auctionId = req.params.auction_id;
   const sqlQuery = `
-    SELECT a.title, c.units
-    FROM articles a
-    JOIN collections c ON a.article_id = c.collection_id
-    WHERE c.bid_id IN (
-      SELECT bid_id
-      FROM bids
-      WHERE bidder_id = ? AND a.auction_id = ?
-    );
+  SELECT a.title, c.units,c.collection_id, b.bidder_id, a.units AS stock_limit
+  FROM articles a
+  JOIN collections c ON a.article_id = c.collection_id
+  JOIN bids b ON c.bid_id = b.bid_id
+  WHERE b.bidder_id = ? AND a.auction_id = ?;
+  
   `;
 
   connection.query(sqlQuery, [userId, auctionId], (err, results) => {
@@ -533,6 +531,17 @@ app.get("/api/collections/:user_id/:auction_id", (req, res) => {
   });
 });
 
+app.post("/api/winners/:auctionId", (req, res) => {
+  const auctionId = req.params.auctionId; // Get auctionId from URL parameters
+  const dataFromPython = req.body; // Data sent from Python script
+  // Process the data and use the auctionId as needed here
+
+  // Send a response back to Python (optional)
+  res.json({ message: "Data received successfully." });
+});
+////////////////////////////
+
+////////////////
 // for test
 
 app.get("/api/users", (req, res) => {
