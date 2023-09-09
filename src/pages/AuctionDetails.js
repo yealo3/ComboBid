@@ -9,6 +9,7 @@ import styles from "./AuctionDetails.module.css";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import AuctionTimer from "../components/AuctionTimer";
 
 const AuctionDetails = () => {
   const { userid } = useAuth();
@@ -33,9 +34,17 @@ const AuctionDetails = () => {
 
     fetchAuctionDetails();
   }, [auctionId]);
+
   const toggleForm = () => {
     setShowForm(!showForm); // Toggle the modal visibility
   };
+
+  // Calculate the current time
+  const currentTime = new Date().toISOString();
+  const isAuctionActive =
+    auctionDetails &&
+    currentTime >= auctionDetails.start_time &&
+    currentTime <= auctionDetails.end_time;
   return (
     <ProtectedRoute
       element={
@@ -45,15 +54,29 @@ const AuctionDetails = () => {
             <div className={styles.headingContainer}>
               <div className={styles.auciton}>Auction</div>
             </div>
+
             <section className={styles.mainContainer}>
               <div className={styles.articelSetContainer}>
                 {auctionDetails && (
                   <h2 className={styles.aucitonName}>{auctionDetails.title}</h2>
                 )}
+
                 <Row auctionId={auctionId} />
+
                 {auctionDetails && userid !== auctionDetails.auctioneer_id && (
-                  <button className={styles.button} onClick={toggleForm}>
-                    <div className={styles.bidOn}>bid on</div>
+                  <button
+                    className={styles.button}
+                    onClick={toggleForm}
+                    // Add a condition to check if the current time is within the auction time range
+                    style={{
+                      display:
+                        currentTime >= auctionDetails.start_time &&
+                        currentTime <= auctionDetails.end_time
+                          ? "block"
+                          : "none",
+                    }}
+                  >
+                    <div className={styles.bidOn}>Bid on</div>
                   </button>
                 )}
               </div>
@@ -66,10 +89,20 @@ const AuctionDetails = () => {
                 </div>
               )}
             </section>
+
             <section className={styles.lists}>
               <BiddersListContainer auctionId={auctionId} />
 
-              <WinnersListContainer auctionId={auctionId} />
+              <WinnersListContainer
+                auctionId={auctionId}
+                isAuctionActive={isAuctionActive}
+              />
+              {auctionDetails && (
+                <AuctionTimer
+                  startTime={auctionDetails.start_time}
+                  endTime={auctionDetails.end_time}
+                />
+              )}
             </section>
           </main>
         </div>

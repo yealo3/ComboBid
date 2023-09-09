@@ -19,8 +19,11 @@ const AuctionDetailsFormContainer = ({ onBackClick }) => {
   const [auctionTitleValue, setAuctionTitleValue] = useState("");
 
   const { userid } = useAuth(); // Assuming you have a userid from the AuthContext
+  // Set the default starting time to the current date and time
+  const defaultStartingTime = new Date();
+
   const [startingTimeDateTimePickerValue, setStartingTimeDateTimePickerValue] =
-    useState(null);
+    useState(defaultStartingTime);
   const [endingTimeDateTimePickerValue, setEndingTimeDateTimePickerValue] =
     useState(null);
   const [selectArticlesAnchorEl, setSelectArticlesAnchorEl] = useState(null);
@@ -62,13 +65,42 @@ const AuctionDetailsFormContainer = ({ onBackClick }) => {
   };
 
   const handleFormSubmit = async () => {
+    // Check if any of the required fields are empty
+    if (
+      !auctionTitleValue ||
+      !startingTimeDateTimePickerValue ||
+      !endingTimeDateTimePickerValue
+    ) {
+      alert("Please fill in all required fields.");
+      return; // Stop form submission if any field is empty
+    }
+
+    // Check if ending time is before starting time
+    if (endingTimeDateTimePickerValue <= startingTimeDateTimePickerValue) {
+      alert("Time constraints are invalid");
+      return; // Stop form submission if ending time is not after starting time
+    }
+    const currentTime = new Date();
+    const oneHourAhead = new Date(currentTime);
+    oneHourAhead.setHours(currentTime.getHours() + 1);
+
+    if (endingTimeDateTimePickerValue <= oneHourAhead) {
+      alert("Time constraints are invalid");
+      return; // Stop form submission if ending time is not ahead of the current time by an hour
+    }
+    // Check if at least one article is selected
+    if (selectedArticles.length === 0) {
+      alert("Please select at least one article.");
+      return; // Stop form submission if no article is selected
+    }
+    // Continue with form submission logic here
     const formData = {
       title: auctionTitleValue,
       startingTime: startingTimeDateTimePickerValue,
       endingTime: endingTimeDateTimePickerValue,
       description: descriptionValue,
       auctioneer_id: userid,
-      selectedArticles: selectedArticles, // Include the selectedArticles property
+      selectedArticles: selectedArticles,
     };
 
     try {
@@ -81,7 +113,7 @@ const AuctionDetailsFormContainer = ({ onBackClick }) => {
       });
 
       if (response.ok) {
-        useEffect();
+        useEffect(); // Not sure what this does, you might want to remove it
         const newAuctionId = await response.json();
         console.log("Auction created with ID:", newAuctionId);
       } else {
@@ -92,6 +124,7 @@ const AuctionDetailsFormContainer = ({ onBackClick }) => {
     }
     onBackClick();
   };
+
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <div className={styles.auctionDetailsFormContainer}>

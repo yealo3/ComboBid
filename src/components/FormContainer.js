@@ -87,23 +87,34 @@ const FormContainer = ({ onBackClick, idauction }) => {
 
   const handleBidChange = (event, articleId) => {
     const amount = event.target.value;
-    // Update the bidData state for bidAmounts
-    setBidData((prevBidData) => ({
-      ...prevBidData,
-      bidAmounts: {
-        ...prevBidData.bidAmounts,
-        [articleId]: amount,
-      },
-    }));
+
+    // Fetch the article corresponding to the articleId
+    const article = articles.find((a) => a.article_id === articleId);
+
+    // Check if the amount is greater than or equal to 0 and less than or equal to the article's units
+    if (amount >= 0 && amount <= article.units) {
+      // Update the bidData state for bidAmounts
+      setBidData((prevBidData) => ({
+        ...prevBidData,
+        bidAmounts: {
+          ...prevBidData.bidAmounts,
+          [articleId]: amount,
+        },
+      }));
+    }
   };
 
   const handlePriceChange = (event) => {
     const price = event.target.value;
-    // Update the bidData state for bidPrice
-    setBidData((prevBidData) => ({
-      ...prevBidData,
-      bidPrice: price,
-    }));
+
+    // Check if the price is greater than 0 before updating the state
+    if (price > 0) {
+      // Update the bidData state for bidPrice
+      setBidData((prevBidData) => ({
+        ...prevBidData,
+        bidPrice: price,
+      }));
+    }
   };
 
   const handleFormSubmit = async () => {

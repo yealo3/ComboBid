@@ -98,7 +98,7 @@ app.post("/api/login", (req, res) => {
 
 //--------------------------------  API endpoint to retrieve data from a table
 app.get("/api/auctions", (req, res) => {
-  const query = "SELECT * FROM auctions";
+  const query = "SELECT * FROM auctions ORDER BY end_time DESC;";
 
   connection.query(query, (err, results) => {
     if (err) {

@@ -1,4 +1,6 @@
-import styles from "./BiddersListContainer.module.css"; // Import styles from BiddersListContainer.module.css
+// WinnersListContainer.js
+import styles from "./BiddersListContainer.module.css"; // Make sure the path is correct
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import {
@@ -9,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 
-const WinnersListContainer = ({ auctionId }) => {
+const WinnersListContainer = ({ auctionId, isAuctionActive }) => {
   const [winners, setWinners] = useState([]);
 
   useEffect(() => {
@@ -34,17 +36,15 @@ const WinnersListContainer = ({ auctionId }) => {
 
     // Clean up the interval when the component unmounts
     return () => clearInterval(intervalId);
-  }, []);
+  }, [auctionId]);
 
   return (
     <div className={styles.biddersListContainer}>
-      {" "}
-      {/* Use styles from BiddersListContainer.module.css */}
-      <Typography variant="h5">Temporary Winners List</Typography>
+      <Typography variant="h5">
+        {isAuctionActive ? "Temporary Winners List" : "Winners List"}
+      </Typography>
       {winners.map((winner, index) => (
         <div key={index} className={styles.biddersListItem}>
-          {" "}
-          {/* Use styles from BiddersListContainer.module.css */}
           <ListItemText
             primary={`${winner.family_name}, ${winner.name}`}
             secondary={`Bidding Time: ${winner.put_time}, Price: $${winner.price}`}

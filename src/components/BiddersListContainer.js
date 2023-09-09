@@ -88,7 +88,9 @@ const BiddersListContainer = ({ auctionId }) => {
             )}
             <ListItemText
               primary={`${bidder.family_name}, ${bidder.name}`}
-              secondary={`Bidding Time: ${bidder.put_time}, Price: $${bidder.price}`}
+              secondary={`Bidding Time: ${formatTime(
+                bidder.put_time
+              )}, Price: $${bidder.price}`}
             />
           </div>
         ))}
@@ -98,3 +100,18 @@ const BiddersListContainer = ({ auctionId }) => {
 };
 
 export default BiddersListContainer;
+function formatTime(timeString) {
+  // Convert the time string to a JavaScript Date object
+  const time = new Date(timeString);
+
+  // Format the date and time as desired (adjust this format as needed)
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    second: "numeric",
+  };
+  return time.toLocaleDateString("en-US", options);
+}

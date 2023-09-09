@@ -57,7 +57,7 @@
 .lists {
   flex-direction: row;
   padding: 51px 0 0;
-  gap: 264px;
+  gap: 40px;
 }
 .auctiondetails,
 .mainContainer {
@@ -101,5 +101,11 @@
   padding: var(--padding-6xs) var(--padding-9xl);
   background-color: var(--color-goldenrod);
   border-radius: var(--br-mini);
-  margin: 50px 10px;
+  margin: 19px 10px;
+}
+.container {
+  display: flex; /* Use flexbox to arrange elements horizontally */
+  justify-content: space-between; /* Space elements evenly */
+  align-items: center; /* Align elements vertically in the center */
+  gap: 40px;
 }

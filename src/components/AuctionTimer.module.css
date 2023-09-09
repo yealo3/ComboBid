@@ -1,0 +1,20 @@
+/* AuctionTimer.module.css */
+
+.auctionTimer {
+  background-color: #c8e4b2;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-top: 10px;
+  text-align: center;
+  width: 300px; /* Adjust the width as needed */
+}
+
+.auctionTimer p {
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+.timerExpired {
+  background-color: #ff6969; /* Set the background color to red when the timer has expired */
+}
