@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { TextField } from "@mui/material";
 import { useAuth } from "./AuthContext";
 import styles from "./ArticleDetailsFormContainer.module.css";
+
 const ArticleDetailsFormContainer = ({ onBackClick, useEffect }) => {
   const [articleTitle, setArticleTitle] = useState("");
   const [articleUnit, setArticleUnit] = useState(0);
@@ -21,6 +22,16 @@ const ArticleDetailsFormContainer = ({ onBackClick, useEffect }) => {
   };
 
   const handleSubmit = async () => {
+    // Constraint check for articleUnit
+    if (articleUnit < 1) {
+      alert("Units cannot be less than 0.");
+      return; // Prevent further submission
+    }
+    if (!articleTitle.trim()) {
+      alert("Article title cannot be empty.");
+      return;
+    }
+
     try {
       const response = await fetch("http://localhost:3002/api/putarticle", {
         method: "POST",

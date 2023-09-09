@@ -8,7 +8,7 @@
 .articleName,
 .entitiesNumber {
   margin: 0;
-  position: relative;
+
   font-weight: 400;
   font-family: inherit;
 }
@@ -23,15 +23,13 @@
 
 .article,
 .articleNameParent {
-  display: flex;
   flex-direction: column;
 }
 
 .articleNameParent {
   width: 147.19px;
   padding: var(--padding-xs) var(--padding-xs);
-  box-sizing: border-box;
-  align-items: flex-start;
+
   justify-content: center;
   gap: var(--gap-7xs);
 }
@@ -44,7 +42,7 @@
   display: flex;
   margin: 10px 20px;
   align-items: center;
-  justify-content: flex-start;
+
   gap: var(--gap-mini);
   text-align: left;
   font-size: 17px; /* Adjust to your desired smaller font size */
