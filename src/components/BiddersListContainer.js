@@ -53,7 +53,7 @@ const BiddersListContainer = ({ auctionId }) => {
     const refreshInterval = setInterval(() => {
       fetchBidders();
       fetchCollections();
-    }, 2000);
+    }, 1000);
 
     // Clear the interval when the component unmounts
     return () => clearInterval(refreshInterval);
