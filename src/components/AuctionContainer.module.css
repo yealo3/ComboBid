@@ -30,9 +30,10 @@
   box-sizing: border-box;
 }
 .auctionContainer {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   background-color: var(--whi);
   width: 252px;
-  height: 298px;
+  height: auto;
   padding: 0 0 var(--padding-16xl);
   box-sizing: border-box;
   gap: var(--gap-base);
@@ -40,4 +41,48 @@
   font-size: var(--font-size-mini);
   color: var(--color-black);
   font-family: var(--font-roboto);
+  text-decoration: none; /* Remove underlines */
+}
+
+.aucitonName {
+  /* Your existing styles for the auction name */
+  margin: 0;
+  position: relative;
+  font-weight: 400;
+  font-family: inherit;
+  text-align: left;
+  font-size: 18px; /* Adjust font size */
+}
+
+.timeInfo {
+  /* New styles for time info container */
+  display: flex;
+  flex-direction: column; /* Adjust flex direction to column */
+  align-items: flex-start; /* Align time items to the left */
+  margin-top: 8px;
+
+  gap: 10px;
+}
+
+.timeItem {
+  /* New styles for individual time item container */
+  display: flex;
+  flex-direction: row; /* Align time label and text horizontally */
+  align-items: center;
+  margin-right: 20px;
+}
+
+h4 {
+  /* Styles for the time label (Start Time, End Time) */
+  margin: 0;
+  font-weight: 400; /* Adjust font weight */
+  font-size: 14px;
+  color: #555;
+}
+
+p {
+  /* Styles for the formatted time */
+  margin: 0;
+  font-size: 16px;
+  color: #333;
 }

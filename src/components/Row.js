@@ -1,43 +1,38 @@
-import React, { useState, useEffect } from 'react';
-import ArticleContainer from './Article';
-import styles from './Row.module.css';
+import React, { useState, useEffect } from "react";
+import ArticleContainer from "./Article";
+import styles from "./Row.module.css";
 
-const Row = () => {
+const Row = ({ auctionId }) => {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [auctionId]);
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:3002/api/data/articles');
+      const response = await fetch(`http://localhost:3002/api/data/articles/`);
       const jsonData = await response.json();
-      setData(jsonData);
+      const filteredData = jsonData.filter(
+        (article) => article.auction_id == auctionId
+      );
+      setData(filteredData);
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error("Error fetching data:", error);
     }
   };
 
   const renderArticles = () => {
-    const rows = [];
-    let row = [];
-
-    for (let i = 0; i < data.length; i++) {
-      const article = data[i];
-      const articleComponent = <ArticleContainer key={article.article_id} article={article} />;
-      row.push(articleComponent);
-
-      if (row.length === 4 || i === data.length - 1) {
-        rows.push(<div className={styles.row} key={i}>{row}</div>);
-        row = [];
-      }
-    }
-
-    return rows;
+    return data.map((article) => (
+      <ArticleContainer
+        className={styles.normalpoacity}
+        key={article.article_id}
+        article={article}
+      />
+    ));
   };
 
-  return <div>{renderArticles()}</div>;
+  return <div className={styles.gridContainer}>{renderArticles()}</div>;
 };
 
 export default Row;

@@ -1,0 +1,30 @@
+.headingContainer {
+  align-self: stretch;
+  height: 56px;
+}
+.formContainer {
+  align-self: stretch;
+
+  align-items: center;
+}
+.formContainer,
+.mainContainer,
+.profile {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.mainContainer {
+  align-self: stretch;
+  align-items: center;
+  gap: var(--gap-11xs);
+}
+.profile {
+  position: relative;
+  background-color: var(--color-whitesmoke-100);
+  width: 100%;
+  overflow: hidden;
+  padding: 0 0 var(--padding-21xl);
+  box-sizing: border-box;
+  align-items: flex-start;
+}

@@ -1,0 +1,58 @@
+.myAuctionsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.myAuctionsContainer {
+  align-self: stretch;
+  height: 1243px;
+  padding: var(--padding-11xl) var(--padding-39xl) 0;
+  box-sizing: border-box;
+  align-items: center;
+  gap: var(--gap-15xl);
+  text-align: center;
+  font-size: var(--font-size-mini);
+  color: var(--color-black);
+  font-family: var(--font-roboto);
+}
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Three columns with equal width */
+  gap: 20px; /* Gap between article containers */
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Make sure it's above the rest of the content */
+}
+
+.button {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-6xs) var(--padding-9xl);
+  background-color: var(--color-goldenrod);
+  border-radius: var(--br-mini);
+}
+.button:hover,
+.submit:hover {
+  background-color: var(--color-peru);
+}
+@media screen and (max-width: 960px) {
+  .auctionsContainer {
+    flex-direction: column;
+  }
+}
+@media screen and (max-width: 420px) {
+  .auctionsContainer {
+    flex-direction: column;
+  }
+}

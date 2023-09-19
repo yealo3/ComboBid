@@ -1,0 +1,66 @@
+.registrationForm {
+  margin: 0;
+  position: relative;
+  font-size: var(--font-size-5xl);
+  font-weight: 600;
+  font-family: var(--font-roboto);
+  display: inline-block;
+  width: 458px;
+}
+.signUpAnd {
+  position: relative;
+}
+.username {
+  border: 0;
+  background-color: transparent;
+}
+.dbAndAccountt {
+  width: 460px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--gap-21xl);
+}
+.startNow {
+  position: relative;
+  font-size: var(--navbar-size);
+  font-family: var(--navbar);
+  color: var(--color-black);
+  text-align: center;
+}
+.startnow {
+  cursor: pointer;
+  border: 0;
+  padding: var(--padding-6xs) var(--padding-9xl);
+  background-color: var(--color-goldenrod);
+  border-radius: var(--br-3xs);
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+}
+.startnow:hover {
+  background-color: var(--color-peru);
+}
+.alreadyHaveAn {
+  cursor: pointer;
+  text-decoration: none;
+  position: relative;
+  color: var(--color-slategray);
+}
+.registrationFormContainer {
+  background-color: var(--whi);
+  display: flex;
+  flex-direction: column;
+  padding: var(--padding-22xl) var(--padding-104xl) var(--padding-28xl);
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-21xl);
+  text-align: center;
+  font-size: var(--navbar-size);
+  color: var(--color-black);
+  font-family: var(--navbar);
+}

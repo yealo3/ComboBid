@@ -1,39 +1,90 @@
+/* WinnersListContainer.module.css */
+
 .winnersList {
-  position: relative;
   font-weight: 600;
+  font-size: 30px; /* Adjust the font size as needed */
 }
-.john {
+
+.winner {
   margin-bottom: 20px;
+  font-size: 20px; /* Adjust the font size as needed */
 }
-.johnEmilySarah {
+
+.winnerPutTime {
   margin: 0;
   padding-left: var(--padding-13xl);
 }
-.johnEmilySarahContainer {
+
+.winnerContainer {
+  align-self: stretch;
   position: relative;
-  font-size: var(--font-inherit);
-  font-family: var(--font-inherit);
-  color: inherit;
-  text-decoration: none;
+  font-size: inherit;
+  font-family: inherit;
 }
+
+.winnersListContainer,
 .winnersListParent {
-  width: 165px;
-  height: 284px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  gap: var(--gap-103xl);
+  justify-content: center;
 }
+
+.winnersListParent {
+  width: 349px;
+}
+
 .winnersListContainer {
   background-color: var(--whi);
   display: flex;
-  flex-direction: row;
-  padding: var(--padding-59xl) var(--padding-117xl) var(--padding-121xl);
-  align-items: flex-start;
-  justify-content: center;
+  padding: var(--padding-26xl) var(--padding-63xl) var(--padding-106xl);
   text-align: center;
-  font-size: var(--font-size-13xl);
+  font-size: 12px; /* Adjust the font size as needed */
   color: var(--color-black);
   font-family: var(--font-roboto);
+}
+
+.collectionBubble {
+  position: absolute; /* Change to relative positioning */
+  background-color: var(--whi);
+  border: 1px solid #ccc;
+  left: 380px;
+  top: -100px;
+  transition: opacity 0.2s ease-in-out;
+  padding: 10px;
+  max-width: 300px;
+  min-width: 280px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.collectionBubble::before {
+  position: absolute;
+
+  width: auto;
+
+  visibility: hidden;
+  opacity: 0;
+
+  pointer-events: none; /* Allows clicks to pass through */
+}
+
+.collectionBubble:hover::before {
+  visibility: visible;
+  opacity: 1;
+
+  left: 0;
+  transform: translateX(-50%); /* Center the tooltip horizontally */
+}
+
+.collectionItem {
+  box-sizing: border-box;
+  padding: 5px 0; /* Add padding to the top and bottom */
+  width: 100%;
+  font-size: 14px;
+  margin: 0;
+  border-bottom: 1px solid #ccc;
+}
+
+.collectionItem:last-child {
+  border-bottom: none; /* Remove the border from the last item */
 }

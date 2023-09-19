@@ -1,0 +1,46 @@
+.accountDetails {
+  margin: 0;
+  position: relative;
+  font-size: inherit;
+  font-weight: 600;
+  font-family: inherit;
+  display: inline-block;
+  width: 458px;
+}
+.pfpIcon {
+  width: 197px;
+  height: 197px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+.pfpIcon,
+.username {
+  position: relative;
+}
+.accountBox,
+.details,
+.usernameB {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: var(--gap-8xs);
+}
+.accountBox,
+.details {
+  flex-direction: column;
+  gap: var(--gap-lgi);
+  font-size: var(--navbar-size);
+  font-family: var(--navbar);
+}
+.accountBox {
+  background-color: var(--whi);
+  width: 581px;
+  padding: var(--padding-22xl) var(--padding-104xl) var(--padding-28xl);
+  box-sizing: border-box;
+  gap: var(--gap-21xl);
+  text-align: center;
+  font-size: var(--font-size-5xl);
+  color: var(--color-black);
+  font-family: var(--font-roboto);
+}
