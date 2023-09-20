@@ -14,7 +14,7 @@ app.use(cors()); // Use the cors middleware to enable cross-origin requests
 const connection = mysql.createConnection({
   host: "127.0.0.1",
   user: "root",
-  password: "",
+  password: "root",
   database: "combinatorialauction_bd",
 });
 connection.connect((err) => {
